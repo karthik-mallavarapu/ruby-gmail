@@ -1,4 +1,3 @@
-
 # Original ruby-gmail documentation
 
 * Code: [http://github.com/dcparker/ruby-gmail](http://github.com/dcparker/ruby-gmail)
@@ -145,7 +144,7 @@ Creating emails now uses the amazing [Mail](http://rubygems.org/gems/mail) rubyg
 
 ## Install
 
-    gem install ruby-gmail
+    gem install karthik-ruby-gmail
 
 ## License
 
