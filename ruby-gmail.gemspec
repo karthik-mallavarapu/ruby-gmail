@@ -4,14 +4,15 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{ruby-gmail}
-  s.version = "0.3.1"
+  s.name = %q{karthik-ruby-gmail}
+  s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["BehindLogic"]
-  s.date = %q{2010-11-07}
-  s.description = %q{A Rubyesque interface to Gmail, with all the tools you'll need. Search, read and send multipart emails; archive, mark as read/unread, delete emails; and manage labels.}
-  s.email = %q{gems@behindlogic.com}
+  s.authors = ["Karthik Mallavarapu"]
+  s.date = %q{2014-04-03}
+  s.description = %q{A Rubyesque interface to Gmail, with all the tools you'll need. Search, read and send multipart emails; archive, mark as read/unread, delete emails; and manage labels. Fork of 
+    the original ruby-gmail gem (https://github.com/dcparker/ruby-gmail). Added search by subject, limit number of email search results.}
+  s.email = %q{karthik.mallavarapu@gmail.com}
   s.extra_rdoc_files = [
     "README.markdown"
   ]
@@ -31,12 +32,7 @@ Gem::Specification.new do |s|
      "test/test_gmail.rb",
      "test/test_helper.rb"
   ]
-  s.homepage = %q{http://dcparker.github.com/ruby-gmail}
-  s.post_install_message = %q{
-[34mIf ruby-gmail saves you TWO hours of work, want to compensate me for, like, a half-hour?
-Support me in making new and better gems:[0m [31;4mhttp://pledgie.com/campaigns/7087[0m
-
-}
+  s.homepage = %q{https://github.com/karthik-mallavarapu/ruby-gmail}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}

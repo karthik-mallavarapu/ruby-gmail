@@ -26,6 +26,8 @@ class Gmail
     # Method: emails
     # Args: [ :all | :unread | :read ]
     # Opts: {:since => Date.new}
+    # Adding subject as a search parameter option. 
+    # Also adding a param called limit, for limiting the number of results. 
     def emails(key_or_opts = :all, opts={})
       if key_or_opts.is_a?(Hash) && opts.empty?
         search = ['ALL']
@@ -50,11 +52,21 @@ class Gmail
         search.concat ['ON', opts[:on].to_imap_date] if opts[:on]
         search.concat ['FROM', opts[:from]] if opts[:from]
         search.concat ['TO', opts[:to]] if opts[:to]
+        # Adding search support for subject field
+        search.concat ['SUBJECT', opts[:subject]] if opts[:subject]
+        if opts[:limit]
+          raise ArgumentError "limit parameter must be an integer to limit the email search results" unless opts[:limit].is_a? Integer
+        end
       end
 
       # puts "Gathering #{(aliases[key] || key).inspect} messages for mailbox '#{name}'..."
       @gmail.in_mailbox(self) do
-        @gmail.imap.uid_search(search).collect { |uid| messages[uid] ||= Message.new(@gmail, self, uid) }
+        email_results = @gmail.imap.uid_search(search).collect { |uid| messages[uid] ||= Message.new(@gmail, self, uid) }
+        limit = email_results.count
+        if opts[:limit]
+          limit = opts[:limit]
+        end
+        email_results.first(limit)
       end
     end
 

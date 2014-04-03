@@ -1,10 +1,5 @@
-# Notice
 
-I have pushed verion 0.3.1 to rubygems.org (Yay, thanks Nick Quaranto for the help) which is a build straight from master.
-
-Second, this gem is getting back on track. See [this issue here](https://github.com/dcparker/ruby-gmail/issues/58) for more information.
-
-# ruby-gmail
+# Original ruby-gmail documentation
 
 * Code: [http://github.com/dcparker/ruby-gmail](http://github.com/dcparker/ruby-gmail)
 * Gem: [http://gemcutter.org/gems/ruby-gmail](http://rubygems.org/gems/ruby-gmail)
@@ -23,11 +18,12 @@ Extra thanks for specific feature contributions from:
 
 ## Description
 
-A Rubyesque interface to Gmail, with all the tools you'll need. Search, read and send multipart emails; archive, mark as read/unread, delete emails; and manage labels.
+This is a fork of the original ruby-gmail gem created by Daniel Parker (http://github.com/dcparker/). Minor improvements have been made in email search functionality. 
+Search functionality now supports search by email subject and a limit on the number of search results. A Rubyesque interface to Gmail, with all the tools you'll need. Search, read and send multipart emails; archive, mark as read/unread, delete emails; and manage labels.
 
 ## Features
 
-* Search emails
+* Search emails (including search by subject)
 * Read emails (handles attachments)
 * Emails: Label, archive, delete, mark as read/unread/spam
 * Create and delete labels
@@ -82,7 +78,7 @@ A Rubyesque interface to Gmail, with all the tools you'll need. Search, read and
 
     # Get messages without marking them as read on the server.
     gmail.peek = true
-    gmail.inbox.emails(:unread, :before => Date.parse("2010-04-20"), :from => "myboss@gmail.com")
+    gmail.inbox.emails(:unread, :before => Date.parse("2010-04-20"), :from => "myboss@gmail.com", :subject => "Appointment at 10 PM")
     
 ### 4) Work with emails!
 
