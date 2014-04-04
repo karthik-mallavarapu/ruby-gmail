@@ -1,3 +1,4 @@
+
 # Documentation
 
 ## New features
@@ -116,7 +117,7 @@ A Rubyesque interface to Gmail, with all the tools you'll need. Search, read and
 
     # Get messages without marking them as read on the server.
     gmail.peek = true
-    gmail.inbox.emails(:unread, :before => Date.parse("2010-04-20"), :from => "myboss@gmail.com", :subject => "Appointment at 10 PM")
+    gmail.inbox.emails(:unread, :before => Date.parse("2010-04-20"), :from => "myboss@gmail.com")
     
 ### 4) Work with emails!
 
@@ -183,7 +184,7 @@ Creating emails now uses the amazing [Mail](http://rubygems.org/gems/mail) rubyg
 
 ## Install
 
-    gem install ruby-gmail
+    gem install karthik-ruby-gmail
 
 ## License
 
