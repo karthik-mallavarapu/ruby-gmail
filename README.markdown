@@ -1,5 +1,6 @@
 
-# Documentation
+# Ruby-gmail
+[![GitHub version](https://badge.fury.io/gh/karthik-mallavarapu%2Fruby-gmail.svg)](http://badge.fury.io/gh/karthik-mallavarapu%2Fruby-gmail) 
 
 ## New features
 
