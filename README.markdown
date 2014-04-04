@@ -1,5 +1,44 @@
+# Documentation
 
-# Original ruby-gmail documentation
+## New features
+
+*  Search by subject
+*  Limit the email search results
+
+## Description
+
+This is a fork of the original ruby-gmail gem created by Daniel Parker (http://github.com/dcparker/). Minor improvements have been made in email search functionality. 
+Search functionality now supports search by email subject and a limit on the number of search results. 
+
+## Example Code:
+  
+  All the examples of the old ruby-gmail gem also hold good. The following examples demonstrate the newer search and limit capabilities.
+
+### 1) Require gmail
+
+    require 'gmail'
+
+### 2) Search emails
+
+    # Start an authenticated gmail session
+    gmail = Gmail.new(username, password)
+
+    # Get unread emails
+    gmail.inbox.email(:unread)
+
+    # Get unread emails from a specific sender to a specific recipient.
+    gmail.inbox.emails(:unread, to: 'foo@bar.com', from: 'bar@foo.com')
+
+    # Get emails matching a subject
+    gmail.inbox.emails(:unread, to: 'foo@bar.com', from: 'bar@foo.com', subject: 'Hello')
+
+    # Limit email search results
+    gmail.inbox.emails(:unread, limit: 5)
+
+## Author
+* Karthik Mallavarapu
+
+# Old ruby-gmail documentation
 
 * Code: [http://github.com/dcparker/ruby-gmail](http://github.com/dcparker/ruby-gmail)
 * Gem: [http://gemcutter.org/gems/ruby-gmail](http://rubygems.org/gems/ruby-gmail)
@@ -18,12 +57,11 @@ Extra thanks for specific feature contributions from:
 
 ## Description
 
-This is a fork of the original ruby-gmail gem created by Daniel Parker (http://github.com/dcparker/). Minor improvements have been made in email search functionality. 
-Search functionality now supports search by email subject and a limit on the number of search results. A Rubyesque interface to Gmail, with all the tools you'll need. Search, read and send multipart emails; archive, mark as read/unread, delete emails; and manage labels.
+A Rubyesque interface to Gmail, with all the tools you'll need. Search, read and send multipart emails; archive, mark as read/unread, delete emails; and manage labels.
 
 ## Features
 
-* Search emails (including search by subject)
+* Search emails
 * Read emails (handles attachments)
 * Emails: Label, archive, delete, mark as read/unread/spam
 * Create and delete labels

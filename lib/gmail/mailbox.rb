@@ -1,5 +1,8 @@
+# encoding: utf-8
+
 require 'date'
 require 'time'
+
 class Object
   def to_imap_date
     Date.parse(to_s).strftime("%d-%B-%Y")
@@ -29,6 +32,9 @@ class Gmail
     # Adding subject as a search parameter option. 
     # Also adding a param called limit, for limiting the number of results. 
     def emails(key_or_opts = :all, opts={})
+      # filter results by search or limit if search or limit are not nil
+      subject = nil
+      limit = nil
       if key_or_opts.is_a?(Hash) && opts.empty?
         search = ['ALL']
         opts = key_or_opts
@@ -52,28 +58,38 @@ class Gmail
         search.concat ['ON', opts[:on].to_imap_date] if opts[:on]
         search.concat ['FROM', opts[:from]] if opts[:from]
         search.concat ['TO', opts[:to]] if opts[:to]
-        # Adding search support for subject field
-        search.concat ['SUBJECT', opts[:subject]] if opts[:subject]
-        if opts[:limit]
-          raise ArgumentError "limit parameter must be an integer to limit the email search results" unless opts[:limit].is_a? Integer
+        subject = opts[:subject]
+        limit = opts[:limit]
+        if limit
+          raise ArgumentError "limit parameter must be an integer to limit the email search results" unless limit.is_a? Integer
         end
       end
-
-      # puts "Gathering #{(aliases[key] || key).inspect} messages for mailbox '#{name}'..."
-      @gmail.in_mailbox(self) do
-        email_results = @gmail.imap.uid_search(search).collect { |uid| messages[uid] ||= Message.new(@gmail, self, uid) }
-        limit = email_results.count
-        if opts[:limit]
-          limit = opts[:limit]
-        end
-        email_results.first(limit)
-      end
+      result = search_emails(search, subject)
+      limit = result.count if limit.nil?
+      result.first(limit)
     end
 
     # This is a convenience method that really probably shouldn't need to exist, but it does make code more readable
     # if seriously all you want is the count of messages.
     def count(*args)
       emails(*args).length
+    end
+
+    # Search mailbox with the given search string params and filter results by subject. 
+    # Subject is not added to the search string, since IMAP raises an exception for non-ASCII strings
+    def search_emails(search, subject)
+      @gmail.in_mailbox(self) do
+        email_results = @gmail.imap.uid_search(search).collect { |uid| messages[uid] ||= Message.new(@gmail, self, uid) }
+        # If subject is not nil, filter results by subject and mark the rest of the emails as unread.
+        if subject
+          result = email_results.select {|email| email.subject == subject} 
+          email_results.reject {|email| email.subject == subject}.each do |email|
+            email.mark(:unread)
+          end
+          return result
+        end
+        return email_results
+      end
     end
 
     def messages
